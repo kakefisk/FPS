@@ -39,11 +39,11 @@ class Player
     {
         if (keystates[SDLK_LEFT])
         {
-            xVel -= speed;
+            xVel = -speed;
         }
         else if (keystates[SDLK_RIGHT])
         {
-            xVel += speed;
+            xVel = speed;
         }
         else
         {
@@ -51,11 +51,11 @@ class Player
         }
         if (keystates[SDLK_UP])
         {
-            yVel -= speed;
+            yVel = -speed;
         }
         else if (keystates[SDLK_DOWN])
         {
-            yVel += speed;
+            yVel = speed;
         }
         else
         {
@@ -147,17 +147,22 @@ int main(int argc, char** argv)
     Player objPlayer = Player(load_sprite("res/player.png"), 100, 100);
     TTF_Font* font = TTF_OpenFont("res/arial.ttf", 12);
 
-    float nextStepFrame = 0.0f;
+    float previousTime = 0;
+    float timeStep = 60/1;
 
     bool isRunning = true;
     while (isRunning)
     {
         Uint8 *keystates = SDL_GetKeyState(NULL);
 
-        float time = SDL_GetTicks();
+        float currentTime = SDL_GetTicks();
+        if (previousTime == 0 || previousTime > currentTime)
+        previousTime = currentTime;
 
-        while (time >= nextStepFrame)
+        while (currentTime - previousTime > timeStep)
         {
+            previousTime += timeStep;
+
             while (SDL_PollEvent(&event))
             {
                 if (event.type == SDL_QUIT)
@@ -168,10 +173,7 @@ int main(int argc, char** argv)
 
             objPlayer.handle_input(keystates);
             objPlayer.move();
-
-            nextStepFrame += 1.0f / FPS;
         }
-
 
         SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format, 100, 100, 100));
 

@@ -10,7 +10,7 @@ using namespace std;
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 240;
 const int SCREEN_DEPTH = 32;
-const int FPS = 60;
+const int FPS = 30;
 
 SDL_Surface* screen = NULL;
 SDL_Surface* txtFPS = NULL;
@@ -148,7 +148,7 @@ int main(int argc, char** argv)
     TTF_Font* font = TTF_OpenFont("res/arial.ttf", 12);
 
     float previousTime = 0;
-    float timeStep = 60/1;
+    float timeStep = 1000/FPS;
 
     bool isRunning = true;
     while (isRunning)

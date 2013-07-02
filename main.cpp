@@ -178,16 +178,19 @@ int main(int argc, char** argv)
         SDL_FillRect(screen, &screen->clip_rect, SDL_MapRGB(screen->format, 100, 100, 100));
 
         // Trying to draw FPS
-        static float lastFrame = SDL_GetTicks();
+        /*static float lastFrame = SDL_GetTicks();
         float curFrame = SDL_GetTicks();
         static float avgFPS = 0.0f;
         avgFPS = avgFPS * 0.95f + (1.0f / (curFrame - lastFrame)) * 0.05f;
         lastFrame = curFrame;
+        SDL_FreeSurface(txtFPS);
         txtFPS = TTF_RenderText_Blended(font, floatToString(avgFPS).c_str(), {255, 255, 0});
-        apply_surface(8, 8, txtFPS, screen);
+        apply_surface(8, 8, txtFPS, screen);*/
 
+        SDL_FreeSurface(txtX);
         txtX = TTF_RenderText_Blended(font, intToString(objPlayer.x).c_str(), {255, 255, 0});
         apply_surface(8, 24, txtX, screen);
+        SDL_FreeSurface(txtY);
         txtY = TTF_RenderText_Blended(font, intToString(objPlayer.y).c_str(), {255, 255, 0});
         apply_surface(8, 40, txtY, screen);
 
